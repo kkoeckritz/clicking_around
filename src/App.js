@@ -1,28 +1,39 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Wrapper from "./components/Wrapper";
+import Title from "./components/Title";
+import friends from "./friends.json";
+import FriendCard from "./components/FriendCard";
 
 class App extends Component {
+  elems = [];
+
+  fillElems = () => {
+    for (let i = 0; i < 9; i++) {
+      var rand_elem = friends[Math.floor(Math.random() * 3)];
+      this.elems.push(rand_elem);
+      console.log(rand_elem.name);
+    }
+  };
+
+  handeClick = event => {
+
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Wrapper>
+      <Title>Friends List</Title>
+      {
+        this.fillElems()
+      }
+      {
+        this.elems.map(e => 
+          <FriendCard name={e.name} image={e.image} occupation={e.occupation} location={e.location}/>
+        )
+      }
+    </Wrapper>
     );
-  }
+  };
 }
 
 export default App;
